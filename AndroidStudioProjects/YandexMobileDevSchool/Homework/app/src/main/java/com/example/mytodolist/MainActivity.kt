@@ -16,5 +16,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        SomeIdiotFunc()
     }
+}
+
+fun SomeIdiotFunc() : Int {
+    return 1;
 }
