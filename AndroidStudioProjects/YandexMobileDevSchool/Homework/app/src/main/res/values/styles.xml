@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LargeTitle">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/Label_Primary</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+    <style name="Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/Label_Primary</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+    <style name="Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/Label_Primary</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+    <style name="Body">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/Label_Primary</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+    <style name="Subhead">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/Label_Primary</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+    <style name="ToolbarTheme">
+        <item name="android:textColorPrimary">@color/Back_Primary</item>
+        <item name="android:textColorSecondary">@color/Back_Secondary</item>
+        <item name="android:background">@color/Back_Primary</item>
+    </style>
+    <style name="FabShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+        <style name="Color1SwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+            <item name="android:thumbTint">@color/Color_Blue</item>
+            <item name="trackTint">@color/Color_Blue</item>
+        </style>
+</resources>

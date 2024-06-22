@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MyToDoList</string>
+    <string name="greeting">My Tasks</string>
+    <string name="completed">Completed</string>
+    <string name="importance">Importance</string>
+    <string name="deadline">Do up to</string>
+    <string name="delete">Delete</string>
+    <string name="priority_low">Low</string>
+    <string name="priority_normal">None</string>
+    <string name="priority_high">High</string>
+    <string name="save">Save</string>
+    <string name="hint">What need to do…</string>
 </resources>
