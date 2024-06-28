@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyToDoList</string>
+    <string name="greeting">Мои дела</string>
+    <string name="completed">Выполнено</string>
+    <string name="importance">Важность</string>
+    <string name="deadline">Сделать до</string>
+    <string name="delete">Удалить</string>
+    <string name="priority_low">Низкий</string>
+    <string name="priority_normal">Нет</string>
+    <string name="priority_high">!! Высокий</string>
+    <string name="save">Сохранить</string>
+    <string name="hint">Что надо сделать…</string>
+</resources>
