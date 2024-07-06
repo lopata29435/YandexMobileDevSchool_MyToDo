@@ -18,16 +18,14 @@ import com.example.mytodolist.R
 fun MainScreen(todoItemsRepository: TodoItemsRepository) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
-    val errorMessage = stringResource(id = R.string.snack_error)
-    val retryActionLabel = stringResource(id = R.string.snack_action)
+
+    todoItemsRepository.setSnackbarHostState(snackbarHostState)
 
     NavHost(navController, startDestination = "todoList") {
         composable("todoList") {
             TodoListElement(
                 todoItemsRepository = todoItemsRepository,
                 snackbarHostState = snackbarHostState,
-                errorMessage = errorMessage,
-                retryActionLabel = retryActionLabel,
                 navigateToAddTask = { taskId ->
                     if (taskId != null) {
                         navController.navigate("addTask/$taskId")

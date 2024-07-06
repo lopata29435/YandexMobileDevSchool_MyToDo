@@ -30,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
@@ -77,8 +78,6 @@ import kotlinx.coroutines.launch
 fun TodoListElement(
     todoItemsRepository: TodoItemsRepository,
     snackbarHostState: SnackbarHostState,
-    errorMessage: String,
-    retryActionLabel: String,
     viewModel: TodoListViewModel = viewModel(factory = TodoListViewModelFactory(todoItemsRepository)),
     navigateToAddTask: (String?) -> Unit
 ) {
@@ -89,23 +88,7 @@ fun TodoListElement(
     val selectedItem by remember { mutableStateOf<TodoItem?>(null) }
     val colors = LocalColors.current
 
-    val scrollBehavior =
-        TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    LaunchedEffect(Unit) {
-        launch {
-            todoItemsRepository.errorFlow.collectLatest { (message, retryAction) ->
-                val result = snackbarHostState.showSnackbar(
-                    message = errorMessage,
-                    actionLabel = retryActionLabel,
-                    duration = SnackbarDuration.Short
-                )
-                if (result == SnackbarResult.ActionPerformed) {
-                    retryAction()
-                }
-            }
-        }
-    }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         topBar = {
@@ -120,7 +103,7 @@ fun TodoListElement(
             FloatingActionButton(
                 onClick = { navigateToAddTask("0") },
                 shape = CircleShape,
-                containerColor = colors.backPrimary
+                containerColor = colors.backElevated
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -129,6 +112,7 @@ fun TodoListElement(
             }
         },
         containerColor = colors.backPrimary,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

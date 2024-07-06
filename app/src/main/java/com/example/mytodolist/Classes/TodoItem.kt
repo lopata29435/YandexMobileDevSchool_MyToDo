@@ -56,7 +56,7 @@ interface TodoApi {
     fun updateList(@Body request: UpdateListRequest, @Header("X-Last-Known-Revision") revision: Int): Call<TodoResponse>
 
     @DELETE("list/{id}")
-    fun deleteItem(@Path("id") id: String): Call<TodoItem>
+    fun deleteItem(@Path("id") id: String, @Header("X-Last-Known-Revision") revision: Int): Call<TodoItem>
 }
 
 val api = RetrofitClient.instance

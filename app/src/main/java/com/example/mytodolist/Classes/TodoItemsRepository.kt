@@ -20,7 +20,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-class TodoItemsRepository {
+class TodoItemsRepository() {
     private val _todoList = MutableStateFlow<List<TodoItem>>(emptyList())
     val todoList: Flow<List<TodoItem>> = _todoList
 
@@ -31,8 +31,7 @@ class TodoItemsRepository {
 
     private val api = RetrofitClient.instance
 
-    private var retryJob: Job? = null
-    private val retryDelay = 3000L // 3 seconds
+    private lateinit var snackbarHostState: SnackbarHostState
 
     init {
         fetchAllTodoItems()
@@ -44,7 +43,7 @@ class TodoItemsRepository {
     private fun fetchAllTodoItems() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitClient.instance.getList().execute()
+                val response = api.getList().execute()
                 if (response.isSuccessful) {
                     response.body()?.let { todoResponse ->
                         val todoItems = todoResponse.list
@@ -124,7 +123,7 @@ class TodoItemsRepository {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = api.deleteItem(todoItemId).execute()
+                val response = api.deleteItem(todoItemId, lastKnownRevision).execute()
                 if (!response.isSuccessful) {
                     showRetrySnackbar("Server error") { deleteItem(todoItemId) }
                 } else {
@@ -138,27 +137,9 @@ class TodoItemsRepository {
         }
     }
 
-    private suspend fun showRetrySnackbar(message: String, retryAction: suspend () -> Unit) {
-        _errorFlow.emit(Pair(message, retryAction))
-    }
-
     private fun handleFetchError(response: Response<*>) {
         CoroutineScope(Dispatchers.IO).launch {
             showRetrySnackbar("Error fetching data") { fetchAllTodoItems() }
-        }
-    }
-
-    private fun showRetrySnackbar(message: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            showRetrySnackbar(message) { fetchAllTodoItems() }
-        }
-    }
-
-    private fun retryFetchAllTodoItems() {
-        retryJob?.cancel()
-        retryJob = CoroutineScope(Dispatchers.IO).launch {
-            delay(retryDelay)
-            fetchAllTodoItems()
         }
     }
 
@@ -188,5 +169,21 @@ class TodoItemsRepository {
     }
 
     fun size(): Int = _todoList.value.size
+
+    fun setSnackbarHostState(state: SnackbarHostState) {
+        snackbarHostState = state
+    }
+    private fun showRetrySnackbar(message: String, action: suspend () -> Unit) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val result = snackbarHostState.showSnackbar(
+                message = message,
+                actionLabel = "Retry",
+                duration = SnackbarDuration.Short
+            )
+            if (result == SnackbarResult.ActionPerformed) {
+                action()
+            }
+        }
+    }
 
 }

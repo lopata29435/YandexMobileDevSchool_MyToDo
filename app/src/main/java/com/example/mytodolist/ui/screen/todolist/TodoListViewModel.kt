@@ -52,15 +52,11 @@ class TodoListViewModel(
 
     fun updateTodoItemCompletion(id: String, done: Boolean) {
         viewModelScope.launch {
-            val updatedItems = _todoItemsState.value.map { item ->
-                if (item.id == id) {
-                    item.copy(done = done)
-                } else {
-                    item
-                }
+            val itemToUpdate = _todoItemsState.value.find { it.id == id }
+            if (itemToUpdate != null) {
+                val updatedItem = itemToUpdate.copy(done = done)
+                todoItemsRepository.updateItem(updatedItem)
             }
-            _todoItemsState.value = updatedItems
-            _completedTasksCount.value = updatedItems.count { it.done }
         }
     }
 }
