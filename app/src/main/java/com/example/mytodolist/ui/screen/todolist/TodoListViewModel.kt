@@ -30,7 +30,7 @@ class TodoListViewModel(
     val filteredTodoItems: StateFlow<List<TodoItem>> = combine(
         _todoItemsState, _showCompleted
     ) { items, showCompleted ->
-        if (showCompleted) items else items.filter { !it.isCompleted }
+        if (showCompleted) items else items.filter { !it.done }
     }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     init {
@@ -41,7 +41,7 @@ class TodoListViewModel(
         viewModelScope.launch {
             todoItemsRepository.getAllTodoItems().collect { items ->
                 _todoItemsState.value = items
-                _completedTasksCount.value = items.count { it.isCompleted }
+                _completedTasksCount.value = items.count { it.done }
             }
         }
     }
@@ -50,17 +50,17 @@ class TodoListViewModel(
         _showCompleted.value = !_showCompleted.value
     }
 
-    fun updateTodoItemCompletion(id: String, isCompleted: Boolean) {
+    fun updateTodoItemCompletion(id: String, done: Boolean) {
         viewModelScope.launch {
             val updatedItems = _todoItemsState.value.map { item ->
                 if (item.id == id) {
-                    item.copy(isCompleted = isCompleted)
+                    item.copy(done = done)
                 } else {
                     item
                 }
             }
             _todoItemsState.value = updatedItems
-            _completedTasksCount.value = updatedItems.count { it.isCompleted }
+            _completedTasksCount.value = updatedItems.count { it.done }
         }
     }
 }

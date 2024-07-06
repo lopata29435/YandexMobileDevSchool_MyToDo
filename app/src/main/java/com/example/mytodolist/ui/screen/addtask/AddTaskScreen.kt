@@ -34,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mytodolist.Classes.Priority
 import com.example.mytodolist.R
 import com.example.mytodolist.ui.theme.LocalColors
 import com.example.mytodolist.ui.theme.MyTypography
@@ -53,6 +52,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DatePickerColors
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SwitchColors
 import androidx.compose.ui.Alignment
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -66,15 +66,16 @@ import androidx.compose.material3.TextFieldColors
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import com.example.mytodolist.App
+import com.example.mytodolist.Classes.Importance
 
 @Composable
 fun AddTaskScreen(
     taskId: String?,
     navController: NavHostController,
-    viewModel: AddTaskViewModel = viewModel(factory = AddTaskViewModelFactory(((LocalContext.current as Activity).application as App).data, taskId)),//TODO перед
+    viewModel: AddTaskViewModel = viewModel(factory = AddTaskViewModelFactory(((LocalContext.current as Activity).application as App).data, taskId, 1)),//TODO перед
 ) {
     val colors = LocalColors.current
-    val priority by viewModel.priority.collectAsState()
+    val importance by viewModel.importance.collectAsState()
     val deadline by viewModel.deadline.collectAsState()
     val deleteEnabled by viewModel.deleteEnabled.collectAsState()
     val taskDescription by viewModel.taskDescription.collectAsState()
@@ -105,7 +106,7 @@ fun AddTaskScreen(
             Spacer(Modifier.height(16.dp))
             PrioritySelect(
                 dropDownMenuVisible,
-                priority,
+                importance,
                 viewModel::onPriorityChange,
             ) {
                 dropDownMenuVisible = it
@@ -300,8 +301,8 @@ fun CustomTextField(
 @Composable
 fun PrioritySelect(
     dropDownMenuVisible: Boolean,
-    priority: Priority,
-    onPriorityChange: (Priority) -> Unit,
+    importance: Importance,
+    onPriorityChange: (Importance) -> Unit,
     changeMenuVisibility: (Boolean) -> Unit
 ) {
     val colors = LocalColors.current
@@ -316,10 +317,10 @@ fun PrioritySelect(
                 style = MyTypography.body(),
             )
             Text(
-                text = when (priority) {
-                    Priority.LOW -> stringResource(id = R.string.priority_low)
-                    Priority.DEFAULT -> stringResource(id = R.string.priority_default)
-                    Priority.HIGH -> stringResource(id = R.string.priority_high)
+                text = when (importance) {
+                    Importance.low -> stringResource(id = R.string.priority_low)
+                    Importance.basic -> stringResource(id = R.string.priority_default)
+                    Importance.important -> stringResource(id = R.string.priority_high)
                 },
                 style = MyTypography.subhead(),
             )
@@ -335,20 +336,20 @@ fun PrioritySelect(
                     text = stringResource(id = R.string.priority_default),
                     style = MyTypography.body()
                 )
-            }, onClick = { onPriorityChange(Priority.DEFAULT); changeMenuVisibility(false) })
+            }, onClick = { onPriorityChange(Importance.basic); changeMenuVisibility(false) })
             DropdownMenuItem(text = {
                 Text(
                     text = stringResource(id = R.string.priority_low),
                     style = MyTypography.body()
                 )
-            }, onClick = { onPriorityChange(Priority.LOW); changeMenuVisibility(false) })
+            }, onClick = { onPriorityChange(Importance.low); changeMenuVisibility(false) })
             DropdownMenuItem(text = {
                 Text(
                     text = stringResource(id = R.string.priority_high),
                     style = MyTypography.body(),
                     color = colors.colorRed
                 )
-            }, onClick = { onPriorityChange(Priority.HIGH); changeMenuVisibility(false) })
+            }, onClick = { onPriorityChange(Importance.important); changeMenuVisibility(false) })
         }
     }
 }

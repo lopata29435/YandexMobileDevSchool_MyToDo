@@ -29,6 +29,9 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -57,7 +60,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mytodolist.Classes.Priority
+import com.example.mytodolist.Classes.TodoApi
 import com.example.mytodolist.Classes.TodoItem
 import com.example.mytodolist.Classes.TodoItemsRepository
 import com.example.mytodolist.R
@@ -65,12 +68,17 @@ import com.example.mytodolist.ui.screen.todolist.TodoListViewModel
 import com.example.mytodolist.ui.screen.todolist.TodoListViewModelFactory
 import com.example.mytodolist.ui.theme.LocalColors
 import com.example.mytodolist.ui.theme.MyTypography
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun TodoListElement(
     todoItemsRepository: TodoItemsRepository,
+    snackbarHostState: SnackbarHostState,
+    errorMessage: String,
+    retryActionLabel: String,
     viewModel: TodoListViewModel = viewModel(factory = TodoListViewModelFactory(todoItemsRepository)),
     navigateToAddTask: (String?) -> Unit
 ) {
@@ -83,6 +91,21 @@ fun TodoListElement(
 
     val scrollBehavior =
         TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    LaunchedEffect(Unit) {
+        launch {
+            todoItemsRepository.errorFlow.collectLatest { (message, retryAction) ->
+                val result = snackbarHostState.showSnackbar(
+                    message = errorMessage,
+                    actionLabel = retryActionLabel,
+                    duration = SnackbarDuration.Short
+                )
+                if (result == SnackbarResult.ActionPerformed) {
+                    retryAction()
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -193,11 +216,4 @@ private fun TopBar(
         scrollBehavior = scrollBehavior
     )
 }
-@Preview
-@Composable
-private fun TodoListPreview() {
-    TodoListElement(
-        TodoItemsRepository(),
-        navigateToAddTask = {}
-    )
-}
+

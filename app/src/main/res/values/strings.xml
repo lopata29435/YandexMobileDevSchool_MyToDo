@@ -12,6 +12,9 @@
     <string name="hint">What need to do…</string>
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
+    <string name="wait">Wait for server approve</string>
+    <string name="snack_error">Error server connection</string>
+    <string name="snack_action">Retry</string>
     <string name="description_pririty_high">High priority</string>
     <string name="description_pririty_low">Low priority</string>
     <string name="description_visibility_on">show completed tasks</string>
