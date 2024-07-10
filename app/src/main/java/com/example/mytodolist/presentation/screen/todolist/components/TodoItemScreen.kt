@@ -18,11 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.mytodolist.Classes.Importance
-import com.example.mytodolist.Classes.TodoItem
+import com.example.mytodolist.data.Importance
+import com.example.mytodolist.data.TodoItem
 import com.example.mytodolist.R
-import com.example.mytodolist.ui.theme.LocalColors
-import com.example.mytodolist.ui.theme.MyTypography
+import com.example.mytodolist.presentation.theme.LocalColors
+import com.example.mytodolist.presentation.theme.MyTypography
 import java.text.DateFormat
 import java.util.Date
 

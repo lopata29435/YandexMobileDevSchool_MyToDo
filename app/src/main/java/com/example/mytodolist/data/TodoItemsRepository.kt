@@ -1,18 +1,13 @@
-package com.example.mytodolist.Classes
+package com.example.mytodolist.data
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.ui.res.stringResource
-import com.example.mytodolist.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -22,10 +17,6 @@ import java.io.IOException
 
 class TodoItemsRepository() {
     private val _todoList = MutableStateFlow<List<TodoItem>>(emptyList())
-    val todoList: Flow<List<TodoItem>> = _todoList
-
-    private val _errorFlow = MutableSharedFlow<Pair<String, suspend () -> Unit>>()
-    val errorFlow: SharedFlow<Pair<String, suspend () -> Unit>> = _errorFlow
 
     private var lastKnownRevision: Int = 0
 
@@ -167,8 +158,6 @@ class TodoItemsRepository() {
         )
         addTodoItem(newItem)
     }
-
-    fun size(): Int = _todoList.value.size
 
     fun setSnackbarHostState(state: SnackbarHostState) {
         snackbarHostState = state

@@ -32,11 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mytodolist.R
-import com.example.mytodolist.ui.theme.LocalColors
-import com.example.mytodolist.ui.theme.MyTypography
+import com.example.mytodolist.presentation.theme.LocalColors
+import com.example.mytodolist.presentation.theme.MyTypography
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.foundation.layout.WindowInsets
@@ -49,24 +48,18 @@ import androidx.compose.material3.Switch
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DatePickerColors
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SwitchColors
 import androidx.compose.ui.Alignment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
 import com.example.mytodolist.AddTaskViewModel
 import com.example.mytodolist.AddTaskViewModelFactory
-import com.example.mytodolist.Classes.TodoItemsRepository
 import java.text.DateFormat
 import java.util.Date
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import com.example.mytodolist.App
-import com.example.mytodolist.Classes.Importance
+import com.example.mytodolist.data.Importance
 
 @Composable
 fun AddTaskScreen(
@@ -207,8 +200,6 @@ fun DeadlinePicker(
     onDeadlineChange: (deadline: Long?) -> Unit,
     onDismissRequest: () -> Unit = {},
 ) {
-    val colors = LocalColors.current
-
     if (datePickerVisible) {
         val datePickerState = rememberDatePickerState()
         DatePickerDialog(
@@ -353,12 +344,3 @@ fun PrioritySelect(
         }
     }
 }
-
-//@Preview
-//@Composable
-//private fun AddTaskPreview(){
-//    AddTaskScreen(
-//        "",
-//        //navController = NavHostController(),
-//    )
-//}

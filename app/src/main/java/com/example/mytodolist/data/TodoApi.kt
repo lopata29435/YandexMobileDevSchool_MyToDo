@@ -1,38 +1,15 @@
-package com.example.mytodolist.Classes
+package com.example.mytodolist.data
 
-import android.util.Log
-import com.google.firebase.dataconnect.LogLevel
 import com.google.gson.annotations.SerializedName
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
 
-enum class Importance {
-    low,
-    basic,
-    important
-}
-
-data class TodoItem(
-    val id: String,
-    val text: String,
-    val importance: String,
-    val deadline: Long?,
-    val done: Boolean,
-    val color: String?,
-    val created_at: Long,
-    val changed_at: Long,
-    val last_updated_by: String
-)
-
-data class TodoResponse(
-    val status: String,
-    val list: List<TodoItem>,
-    val revision: Int
-)
 interface TodoApi {
     @GET("list/")
     fun getList(): Call<TodoResponse>
@@ -58,5 +35,3 @@ interface TodoApi {
     @DELETE("list/{id}")
     fun deleteItem(@Path("id") id: String, @Header("X-Last-Known-Revision") revision: Int): Call<TodoItem>
 }
-
-val api = RetrofitClient.instance

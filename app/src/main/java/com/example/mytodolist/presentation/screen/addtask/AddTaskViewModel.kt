@@ -3,9 +3,9 @@ package com.example.mytodolist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.mytodolist.Classes.Importance
-import com.example.mytodolist.Classes.TodoItem
-import com.example.mytodolist.Classes.TodoItemsRepository
+import com.example.mytodolist.data.Importance
+import com.example.mytodolist.data.TodoItem
+import com.example.mytodolist.data.TodoItemsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,7 +15,6 @@ import java.util.UUID
 class AddTaskViewModel(
     private val repository: TodoItemsRepository,
     private val taskId: String? = null,
-    private val revision: Int
 ) : ViewModel() {
     private val _importance = MutableStateFlow(Importance.basic)
     val importance: StateFlow<Importance> = _importance
@@ -99,7 +98,7 @@ class AddTaskViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(AddTaskViewModel::class.java)) {
-            AddTaskViewModel(todoItemsRepository, taskId, revision) as T
+            AddTaskViewModel(todoItemsRepository, taskId) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }

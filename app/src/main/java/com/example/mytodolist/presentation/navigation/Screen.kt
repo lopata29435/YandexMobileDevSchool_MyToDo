@@ -1,18 +1,16 @@
-package com.example.mytodolist.ui.navigation
+package com.example.mytodolist.presentation.navigation
 
 import AddTaskScreen
 import TodoListElement
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.mytodolist.Classes.TodoItemsRepository
-import com.example.mytodolist.R
+import com.example.mytodolist.data.TodoItemsRepository
 
 @Composable
 fun MainScreen(todoItemsRepository: TodoItemsRepository) {
