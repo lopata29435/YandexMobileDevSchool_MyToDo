@@ -1,17 +1,18 @@
-package com.example.mytodolist.ui.screen.todolist
+package com.example.mytodolist.presentation.screen.todolist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mytodolist.Classes.TodoItem
-import com.example.mytodolist.Classes.TodoItemsRepository
+import com.example.mytodolist.data.TodoItem
+import com.example.mytodolist.data.TodoItemsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 
 class TodoListViewModel(
@@ -19,7 +20,6 @@ class TodoListViewModel(
 ) : ViewModel() {
 
     private val _todoItemsState = MutableStateFlow<List<TodoItem>>(emptyList())
-    val todoItemsState: StateFlow<List<TodoItem>> = _todoItemsState.asStateFlow()
 
     private val _showCompleted = MutableStateFlow(true)
     val showCompleted: StateFlow<Boolean> = _showCompleted.asStateFlow()
@@ -31,7 +31,8 @@ class TodoListViewModel(
         _todoItemsState, _showCompleted
     ) { items, showCompleted ->
         if (showCompleted) items else items.filter { !it.done }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    }.flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     init {
         loadTodoItems()

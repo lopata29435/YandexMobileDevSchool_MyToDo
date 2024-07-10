@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Сохранить имена классов и полей для всех классов моделей данных
+-keep class com.example.mytodolist.data.** { *; }
+
+# сохранить аннотации SerializedName
+-keepattributes *Annotation*
