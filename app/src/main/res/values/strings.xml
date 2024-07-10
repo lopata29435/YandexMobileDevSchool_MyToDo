@@ -1,13 +1,22 @@
 <resources>
-    <string name="app_name">MyToDoList</string>
+    <string name="app_name">LopataList</string>
     <string name="greeting">My Tasks</string>
     <string name="completed">Completed</string>
     <string name="importance">Importance</string>
     <string name="deadline">Do up to</string>
     <string name="delete">Delete</string>
     <string name="priority_low">Low</string>
-    <string name="priority_normal">None</string>
+    <string name="priority_default">None</string>
     <string name="priority_high">High</string>
     <string name="save">Save</string>
     <string name="hint">What need to do…</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="wait">Wait for server approve</string>
+    <string name="snack_error">Error server connection</string>
+    <string name="snack_action">Retry</string>
+    <string name="description_pririty_high">High priority</string>
+    <string name="description_pririty_low">Low priority</string>
+    <string name="description_visibility_on">show completed tasks</string>
+    <string name="description_visibility_off">do not show completed tasks</string>
 </resources>
