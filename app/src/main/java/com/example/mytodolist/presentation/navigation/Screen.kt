@@ -10,10 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.mytodolist.data.TodoItemsRepository
+import com.example.mytodolist.data.domain.ITodoItemsRepository
 
 @Composable
-fun MainScreen(todoItemsRepository: TodoItemsRepository) {
+fun MainScreen(todoItemsRepository: ITodoItemsRepository) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -25,7 +25,7 @@ fun MainScreen(todoItemsRepository: TodoItemsRepository) {
                 todoItemsRepository = todoItemsRepository,
                 snackbarHostState = snackbarHostState,
                 navigateToAddTask = { taskId ->
-                    if (taskId != null) {
+                    if (taskId != "0") {
                         navController.navigate("addTask/$taskId")
                     } else {
                         navController.navigate("addTask/0")
@@ -37,12 +37,16 @@ fun MainScreen(todoItemsRepository: TodoItemsRepository) {
             "addTask/{taskId}",
             arguments = listOf(navArgument("taskId") {
                 type = NavType.StringType
-                defaultValue = null
+                defaultValue = "0"
                 nullable = true
             })
         ) { backStackEntry ->
             val taskId = backStackEntry.arguments?.getString("taskId")
-            AddTaskScreen(taskId = taskId, navController = navController)
+            AddTaskScreen(
+                todoItemsRepository = todoItemsRepository,
+                taskId = taskId,
+                navController = navController
+            )
         }
     }
 }
