@@ -7,9 +7,9 @@ import com.example.mytodolist.AddTaskViewModelFactory
 import com.example.mytodolist.data.database.AppDatabase
 import com.example.mytodolist.data.database.TodoItemDao
 import com.example.mytodolist.data.domain.ITodoItemsRepository
+import com.example.mytodolist.data.domain.ThemePreferences
 import com.example.mytodolist.data.domain.TodoItemsRepositoryImpl
 import com.example.mytodolist.presentation.viewmodels.TodoListViewModelFactory
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -36,6 +36,7 @@ abstract class RepositoryModule {
 
 @Module
 class AppModule {
+
     @Provides
     @Singleton
     fun provideSharedPreferences(application: Application): SharedPreferences {
@@ -53,23 +54,15 @@ class AppModule {
     }
 
     @Provides
-    fun provideAddTaskViewModelFactory(
-        repository: ITodoItemsRepository,
-        taskId: String?
-    ): AddTaskViewModelFactory {
-        return AddTaskViewModelFactory(repository, taskId)
-    }
-
-    @Provides
-    fun provideTodoListViewModelFactory(
-        repository: ITodoItemsRepository
-    ): TodoListViewModelFactory {
-        return TodoListViewModelFactory(repository)
+    @Singleton
+    fun provideThemeManager(application: Application): ThemePreferences {
+        return ThemePreferences(application.applicationContext)
     }
 }
 
 @Module
 class ActivityModule {
+
     @Provides
     fun provideAddTaskViewModelFactory(
         repository: ITodoItemsRepository,
@@ -80,8 +73,9 @@ class ActivityModule {
 
     @Provides
     fun provideTodoListViewModelFactory(
-        repository: ITodoItemsRepository
+        repository: ITodoItemsRepository,
+        themeManager: ThemePreferences
     ): TodoListViewModelFactory {
-        return TodoListViewModelFactory(repository)
+        return TodoListViewModelFactory(repository, themeManager)
     }
 }

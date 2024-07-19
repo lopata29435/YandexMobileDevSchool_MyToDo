@@ -11,9 +11,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.mytodolist.data.domain.ITodoItemsRepository
+import com.example.mytodolist.data.domain.ThemePreferences
 
 @Composable
-fun MainScreen(todoItemsRepository: ITodoItemsRepository) {
+fun MainScreen(
+    todoItemsRepository: ITodoItemsRepository,
+    themePreferences: ThemePreferences
+) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -24,6 +28,7 @@ fun MainScreen(todoItemsRepository: ITodoItemsRepository) {
             TodoListElement(
                 todoItemsRepository = todoItemsRepository,
                 snackbarHostState = snackbarHostState,
+                themePreferences = themePreferences,
                 navigateToAddTask = { taskId ->
                     if (taskId != "0") {
                         navController.navigate("addTask/$taskId")
