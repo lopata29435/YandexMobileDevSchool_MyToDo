@@ -1,0 +1,308 @@
+{
+  "card": {
+    "log_id": "div2_sample_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "items": [
+            {
+              "type": "_template_close",
+              "alignment_horizontal": "right",
+              "height": {
+                "type": "fixed",
+                "value": 28
+              },
+              "margins": {
+                "top": 50,
+                "right": 24
+              },
+              "width": {
+                "type": "fixed",
+                "value": 28
+              },
+              "actions": [
+                {
+                  "log_id": "custom_action",
+                  "url": "div-action://custom_action"
+                }
+              ]
+            },
+            {
+              "type": "image",
+              "image_url": "https://sun4-20.userapi.com/impg/ktxGI_Q4MuI7vG1szr8dpm8lSapFYR4YlvKkKA/neYpavl2WgQ.jpg?size=1280x853&quality=95&sign=3c59b7b43378eafdd6443f2543a5914c&type=album",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 259
+              },
+              "preload_required": true,
+              "alignment_horizontal": "center",
+              "alignment_vertical": "top",
+              "margins": {
+                "left": 69,
+                "right": 69,
+                "top": 78
+              },
+              "transform": {
+                "rotation": 317
+              },
+              "id": "imageToChange"
+            },
+            {
+              "type": "text",
+              "text": "Добро пожаловать в моё приложение!",
+              "font_size": 20,
+              "width": {
+                "type": "wrap_content",
+                "constrained": true
+              },
+              "alignment_horizontal": "center",
+              "alignment_vertical": "top",
+              "margins": {
+                "top": 434
+              },
+              "font_weight": "medium",
+              "text_alignment_horizontal": "center"
+            },
+            {
+              "text": "Тык!",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#000"
+                }
+              ],
+              "text_color": "#fff",
+              "corners": 4,
+              "type": "_template_button",
+              "width": {
+                "type": "wrap_content",
+                "constrained": true
+              },
+              "alignment_horizontal": "center",
+              "alignment_vertical": "top",
+              "margins": {
+                "top": 528
+              },
+              "text_alignment_horizontal": "center",
+              "actions": [
+                {
+                  "log_id": "change_image",
+                  "url": "div-action://set_state?state_id=1"
+                }
+              ]
+            }
+          ],
+          "background": [
+            {
+              "color": "#F1EBDC",
+              "type": "solid"
+            }
+          ],
+          "height": {
+            "type": "match_parent"
+          },
+          "orientation": "overlap",
+          "type": "container"
+        }
+      },
+      {
+        "state_id": 1,
+        "div": {
+          "items": [
+            {
+              "type": "_template_close",
+              "alignment_horizontal": "right",
+              "height": {
+                "type": "fixed",
+                "value": 28
+              },
+              "margins": {
+                "top": 50,
+                "right": 24
+              },
+              "width": {
+                "type": "fixed",
+                "value": 28
+              },
+              "actions": [
+                {
+                  "log_id": "custom_action",
+                  "url": "div-action://custom_action"
+                }
+              ]
+            },
+            {
+              "type": "image",
+              "image_url": "https://sun9-50.userapi.com/impg/JSkERKSYtTW-RfAIOb8bRXHA8--EYzR-x5ze6Q/l0pKC-wWO0Y.jpg?size=1280x853&quality=95&sign=95236cb38462eea158bdbec0cb894c55&type=album",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 259
+              },
+              "preload_required": true,
+              "alignment_horizontal": "center",
+              "alignment_vertical": "top",
+              "margins": {
+                "left": 69,
+                "right": 69,
+                "top": 78
+              },
+              "transform": {
+                "rotation": 0
+              },
+              "id": "imageToChange"
+            },
+            {
+              "type": "text",
+              "text": "Добро пожаловать в моё приложение!",
+              "font_size": 20,
+              "width": {
+                "type": "wrap_content",
+                "constrained": true
+              },
+              "alignment_horizontal": "center",
+              "alignment_vertical": "top",
+              "margins": {
+                "top": 434
+              },
+              "font_weight": "medium",
+              "text_alignment_horizontal": "center"
+            },
+            {
+              "text": "Тык!",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#000"
+                }
+              ],
+              "text_color": "#fff",
+              "corners": 4,
+              "type": "_template_button",
+              "width": {
+                "type": "wrap_content",
+                "constrained": true
+              },
+              "alignment_horizontal": "center",
+              "alignment_vertical": "top",
+              "margins": {
+                "top": 528
+              },
+              "text_alignment_horizontal": "center",
+              "actions": [
+                {
+                  "log_id": "change_image",
+                  "url": "div-action://set_state?state_id=0"
+                }
+              ]
+            }
+          ],
+          "background": [
+            {
+              "color": "#F1EBDC",
+              "type": "solid"
+            }
+          ],
+          "height": {
+            "type": "match_parent"
+          },
+          "orientation": "overlap",
+          "type": "container"
+        }
+      }
+    ]
+  },
+  "templates": {
+    "_template_lottie": {
+      "type": "gif",
+      "scale": "fit",
+      "extensions": [
+        {
+          "id": "lottie",
+          "params": {
+            "$lottie_url": "lottie_url"
+          }
+        }
+      ],
+      "gif_url": "https://empty"
+    },
+    "_template_button": {
+      "type": "text",
+      "text_alignment_horizontal": "center",
+      "text_alignment_vertical": "center",
+      "border": {
+        "$corner_radius": "corners"
+      },
+      "paddings": {
+        "bottom": 24,
+        "left": 28,
+        "right": 28,
+        "top": 22
+      },
+      "width": {
+        "type": "wrap_content"
+      }
+    },
+    "_template_close": {
+      "accessibility": {
+        "description": "Закрыть",
+        "mode": "merge",
+        "type": "button"
+      },
+      "actions": [
+        {
+          "log_id": "close_popup",
+          "url": "div-screen://close"
+        }
+      ],
+      "image_url": "https://yastatic.net/s3/home/div/div_fullscreens/cross2.3.png",
+      "tint_color": "#73000000",
+      "type": "image",
+      "preload_required": true
+    },
+    "_template_list_item": {
+      "type": "container",
+      "orientation": "horizontal",
+      "items": [
+        {
+          "type": "image",
+          "image_url": "https://yastatic.net/s3/home/div/div_fullscreens/hyphen.4.png",
+          "$tint_color": "list_color",
+          "width": {
+            "type": "fixed",
+            "value": 28,
+            "unit": 28
+          },
+          "height": {
+            "type": "fixed",
+            "value": 28,
+            "unit": 28
+          },
+          "margins": {
+            "top": 32,
+            "right": 12,
+            "bottom": 2
+          }
+        },
+        {
+          "type": "text",
+          "$text": "list_text",
+          "$text_color": "list_color",
+          "font_size": 24,
+          "line_height": 32,
+          "font_weight": "medium",
+          "width": {
+            "type": "wrap_content",
+            "constrained": true
+          }
+        }
+      ]
+    }
+  }
+}

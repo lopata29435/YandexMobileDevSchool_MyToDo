@@ -76,6 +76,7 @@ fun TodoListElement(
 
     val selectedItem by remember { mutableStateOf<TodoItem?>(null) }
     val colors = LocalColors.current
+    val context = LocalContext.current
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -117,7 +118,7 @@ fun TodoListElement(
                         completedTasksCount = completedTasksCount,
                         onChangeCompletedTasksVisibilityClick = viewModel::toggleShowCompleted,
                         onSettingsClick = { scope.launch { scaffoldState.bottomSheetState.expand() } },
-                        onInfoClick = {}
+                        onInfoClick = { viewModel.onInfoClick(context) }
                     )
                 },
                 floatingActionButton = {

@@ -1,5 +1,7 @@
 package com.example.mytodolist.presentation.viewmodels
 
+import android.content.Context
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
@@ -13,9 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mytodolist.data.domain.ITodoItemsRepository
 import com.example.mytodolist.data.domain.Theme
 import com.example.mytodolist.data.domain.ThemePreferences
+import com.example.mytodolist.presentation.screens.about.DivKitActivity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
@@ -23,8 +24,8 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class TodoListViewModel @Inject constructor(
-    val todoItemsRepository: ITodoItemsRepository,
-    val themePreferences: ThemePreferences
+    private val todoItemsRepository: ITodoItemsRepository,
+    private val themePreferences: ThemePreferences
 ) : ViewModel() {
 
     private val _todoItemsState = MutableStateFlow<List<TodoItem>>(emptyList())
@@ -36,7 +37,7 @@ class TodoListViewModel @Inject constructor(
     val completedTasksCount: StateFlow<Int> = _completedTasksCount.asStateFlow()
 
     private val _themeMode = MutableStateFlow(themePreferences.getThemeMode())
-    val themeMode: StateFlow<Theme> = _themeMode
+    val themeMode: StateFlow<Theme> = _themeMode.asStateFlow()
 
     val filteredTodoItems: StateFlow<List<TodoItem>> = combine(
         _todoItemsState, _showCompleted
@@ -50,10 +51,13 @@ class TodoListViewModel @Inject constructor(
     }
 
     fun updateTheme(newTheme: Theme) {
-        viewModelScope.launch {
-            _themeMode.emit(newTheme)
-            themePreferences.setThemeMode(newTheme)
-        }
+        _themeMode.value = newTheme
+        themePreferences.setThemeMode(newTheme)
+    }
+
+    fun onInfoClick(context: Context) {
+        val intent = Intent(context, DivKitActivity::class.java)
+        context.startActivity(intent)
     }
 
     private fun loadTodoItems() {
