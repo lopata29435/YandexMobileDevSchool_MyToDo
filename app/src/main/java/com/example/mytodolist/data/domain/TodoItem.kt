@@ -5,12 +5,6 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.gson.annotations.SerializedName
 
-enum class Importance {
-    low,
-    basic,
-    important
-}
-
 class Converters {
     @TypeConverter
     fun fromImportance(importance: Importance?): String? {

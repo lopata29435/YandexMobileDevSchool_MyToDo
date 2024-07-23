@@ -37,15 +37,12 @@ fun MyToDoListTheme(
         onSurfaceVariant = colors.colorBlue,
     )
 
-    val colorScheme = when {
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     CompositionLocalProvider(LocalColors provides colors) {
         MaterialTheme(
-            content = content,
-            colorScheme = colorScheme
+            colorScheme = colorScheme,
+            content = content
         )
     }
 }
